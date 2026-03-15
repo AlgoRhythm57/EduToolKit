@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Utility Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+
+<nav>
+  <h2>Student Utility Hub</h2>
+</nav>
+
+<header class="hero">
+  <h1>Student Utility Hub</h1>
+  <p>Free online tools for students – calculators, productivity tools, and more.</p>
+</header>
+
+<!-- Tools Grid -->
+<div class="tools">
+  <a href="#" class="card" id="percentageCard">
+    🧮 Percentage Calculator
+    <p>Calculate percentages, increases, decreases with ease.</p>
+  </a>
+  <a href="#" class="card" id="cgpaCard">
+    🎓 CGPA Calculator
+    <p>Compute CGPA with multiple subjects and scales.</p>
+  </a>
+  <a href="#" class="card" id="ageCard">
+    🎂 Age Calculator
+    <p>Know your exact age in years, months, weeks, and days.</p>
+  </a>
+  <a href="#" class="card" id="studyTimerCard">
+    ⏱️ Study Timer
+    <p>Focus sessions: Pomodoro, Deep Focus, or Custom timers.</p>
+  </a>
+</div>
+
+<!-- Tool Sections -->
+
+<!-- Percentage -->
+<div id="percentageSection" class="tool-section hidden">
+  <button class="backBtn">← Back to Home</button>
+  <h1>Percentage Calculator</h1>
+  <input type="number" id="percentageX" placeholder="Enter X">
+  <input type="number" id="percentageY" placeholder="Enter Y">
+  <button id="calculatePercentage">Calculate</button>
+  <h2 id="percentageResult"></h2>
+</div>
+
+<!-- CGPA -->
+<div id="cgpaSection" class="tool-section hidden">
+  <button class="backBtn">← Back to Home</button>
+  <h1>CGPA Calculator</h1>
+  <div id="subjectsContainer"></div>
+  <button id="addSubject">+ Add Subject</button>
+  <h2 id="cgpaResult"></h2>
+</div>
+
+<!-- Age -->
+<div id="ageSection" class="tool-section hidden">
+  <button class="backBtn">← Back to Home</button>
+  <h1>Age Calculator</h1>
+  <input type="date" id="birthdate">
+  <button id="calculateAgeBtn">Calculate Age</button>
+  <h2 id="ageResult"></h2>
+</div>
+
+<!-- Study Timer -->
+<div id="studyTimerSection" class="tool-section hidden">
+  <button class="backBtn">← Back to Home</button>
+  <h1>Study Timer</h1>
+  <div class="timer-container">
+    <svg id="timerSvg" width="200" height="200">
+      <circle cx="100" cy="100" r="90" stroke="#3b82f6" stroke-width="10" fill="none" stroke-dasharray="565.48" stroke-dashoffset="565.48"/>
+    </svg>
+    <div id="timerDisplay">25:00</div>
+  </div>
+  <div class="timer-controls">
+    <button id="startPauseBtn">Start</button>
+    <button id="resetBtn">Reset</button>
+    <button id="addTimeBtn">+1 min</button>
+  </div>
+  <p id="sessionCounter">Session 1 of 4</p>
+  <p id="quoteDisplay">"Stay focused and keep learning!"</p>
+</div>
+
+<!-- Footer -->
+<footer>
+  © 2026 Student Utility Hub – All rights reserved
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
