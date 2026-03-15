@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CGPA Calculator</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+  <h1>CGPA Calculator</h1>
+
+  <div id="subjects">
+    <!-- Dynamic subject rows will go here -->
+  </div>
+
+  <button onclick="addSubject()">Add Subject</button>
+  <button onclick="calculateCGPA()">Calculate CGPA</button>
+
+  <h2 id="cgpaResult"></h2>
+
+  <script>
+    const subjectsContainer = document.getElementById("subjects");
+
+    function addSubject() {
+      const div = document.createElement("div");
+      div.classList.add("subject-row");
+      div.innerHTML = `
+        <input type="text" placeholder="Subject Name" class="subName">
+        <input type="number" placeholder="Credits" class="subCredits" min="0">
+        <select class="subGrade">
+          <option value="">Grade</option>
+          <option value="10">A+</option>
+          <option value="9">A</option>
+          <option value="8">B+</option>
+          <option value="7">B</option>
+          <option value="6">C+</option>
+          <option value="5">C</option>
+        </select>
+        <button onclick="removeSubject(this)">Remove</button>
+      `;
+      subjectsContainer.appendChild(div);
+    }
+
+    function removeSubject(btn) {
+      subjectsContainer.removeChild(btn.parentElement);
+    }
+
+    function calculateCGPA() {
+      const rows = document.querySelectorAll(".subject-row");
+      let totalPoints = 0;
+      let totalCredits = 0;
+
+      rows.forEach(row => {
+        const credits = parseFloat(row.querySelector(".subCredits").value);
+        const grade = parseFloat(row.querySelector(".subGrade").value);
+
+        if (!isNaN(credits) && !isNaN(grade)) {
+          totalPoints += credits * grade;
+          totalCredits += credits;
+        }
+      });
+
+      if (totalCredits === 0) {
+        alert("Please enter valid credits and grades!");
+        return;
+      }
+
+      const cgpa = (totalPoints / totalCredits).toFixed(2);
+      document.getElementById("cgpaResult").innerText = `Your CGPA is: ${cgpa}`;
+    }
+
+    // Initialize with 1 subject
+    addSubject();
+  </script>
+<!-- Footer -->
+<footer>
+  © 2026 Student Utility Hub – All rights reserved
+</footer>
+</body>
+
+</html>

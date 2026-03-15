@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Percentage Calculator</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    /* ---------------------- */
+    /* Tabs */
+    /* ---------------------- */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .tab {
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      background: rgba(30, 41, 59, 0.6);
+      backdrop-filter: blur(5px);
+      transition: 0.3s;
+    }
+
+    .tab.active {
+      background: #3b82f6;
+      color: white;
+    }
+
+    /* Inputs */
+    .inputs {
+      margin-bottom: 20px;
+    }
+
+    .inputs input {
+      margin: 10px 5px;
+      width: 160px;
+      padding: 8px;
+      border-radius: 6px;
+      border: none;
+      font-size: 16px;
+    }
+
+    /* Result box */
+    #resultBox {
+      background: rgba(30, 41, 59, 0.6);
+      padding: 20px;
+      border-radius: 12px;
+      display: inline-block;
+      min-width: 280px;
+      margin-top: 15px;
+      transition: 0.3s;
+      text-align: left;
+    }
+
+    #breakdown {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #cbd5f5;
+    }
+
+    button.copyBtn {
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Percentage Calculator</h1>
+
+  <div class="tabs">
+    <div class="tab active" data-mode="mode1">Find % of Number</div>
+    <div class="tab" data-mode="mode2">Number is % of Total</div>
+    <div class="tab" data-mode="mode3">Percentage Change</div>
+  </div>
+
+  <div class="inputs">
+    <input type="number" id="input1" placeholder="Enter first number">
+    <input type="number" id="input2" placeholder="Enter second number">
+  </div>
+
+  <button onclick="calculatePercentage()">Calculate</button>
+
+  <div id="resultBox" style="display:none;">
+    <h2 id="result"></h2>
+    <div id="breakdown"></div>
+    <button class="copyBtn" onclick="copyResult()">Copy Result</button>
+  </div>
+
+  <script>
+    // Mode selection
+    let mode = 'mode1';
+    const tabs = document.querySelectorAll('.tab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        mode = tab.dataset.mode;
+        document.getElementById('resultBox').style.display = 'none';
+
+        // Update placeholders for clarity
+        const input1 = document.getElementById('input1');
+        const input2 = document.getElementById('input2');
+
+        if (mode === 'mode1') {
+          input1.placeholder = "Percent (%)";
+          input2.placeholder = "Number";
+        } else if (mode === 'mode2') {
+          input1.placeholder = "Part";
+          input2.placeholder = "Total";
+        } else if (mode === 'mode3') {
+          input1.placeholder = "Old Value";
+          input2.placeholder = "New Value";
+        }
+      });
+    });
+
+    function calculatePercentage() {
+      const val1 = parseFloat(document.getElementById('input1').value);
+      const val2 = parseFloat(document.getElementById('input2').value);
+      const resultBox = document.getElementById('resultBox');
+      const result = document.getElementById('result');
+      const breakdown = document.getElementById('breakdown');
+
+      if (isNaN(val1) || isNaN(val2)) {
+        alert("Please enter valid numbers!");
+        return;
+      }
+
+      let res = 0;
+      let details = "";
+
+      if (mode === 'mode1') {
+        // Find % of Number
+        res = (val1 * val2) / 100;
+        details = `${val1}% of ${val2} = (${val1} ÷ 100) × ${val2} = ${res}`;
+      } else if (mode === 'mode2') {
+        // Number is % of Total
+        res = (val1 / val2) * 100;
+        details = `${val1} is what % of ${val2} = (${val1} ÷ ${val2}) × 100 = ${res.toFixed(2)}%`;
+      } else if (mode === 'mode3') {
+        // Percentage change
+        const diff = val2 - val1;
+        res = (diff / val1) * 100;
+        const type = res >= 0 ? 'increase' : 'decrease';
+        details = `Change from ${val1} to ${val2} = ${diff} (${Math.abs(res.toFixed(2))}% ${type})`;
+      }
+
+      result.innerText = res.toFixed(2) + (mode === 'mode2' || mode === 'mode3' ? '%' : '');
+      breakdown.innerText = details;
+      resultBox.style.display = 'inline-block';
+    }
+
+    function copyResult() {
+      const resultText = document.getElementById('result').innerText;
+      navigator.clipboard.writeText(resultText).then(() => {
+        alert("Result copied to clipboard!");
+      });
+    }
+  </script>
+<!-- Footer -->
+<footer>
+  © 2026 Student Utility Hub – All rights reserved
+</footer>
+</body>
+
+</html>
